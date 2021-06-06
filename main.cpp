@@ -3,7 +3,7 @@
 using std::cout;
 using std::endl;
 using std::string;
-//using namespace mtm;
+using namespace mtm;
 #define TEST(num) cout << endl << "TEST " << (num) << endl;
 
 int main() {
@@ -29,4 +29,5 @@ int main() {
     catch (ExamDetails::InvalidDateException& e) {
         cout << "invalid date" << endl;
     }
+    
 }
