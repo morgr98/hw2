@@ -10,7 +10,7 @@ template<class T>
 class Node
 {
 private:
-    T* data;
+    T data;
     Node* next;
 
 public:
@@ -18,6 +18,11 @@ public:
     Node(T data);
     Node(const Node&);
     ~Node();
+    Node* getNext() const;
+    const T& getData() const;
+    T& getData();
+
+
 };
 
 template<class T>
@@ -25,14 +30,37 @@ Node<T>::Node() : data(NULL), next(NULL){}
 
 template<class T>
 //not sure about the new here
-Node<T>::Node(T data) :data(new T), next(NULL){
-    data =
+Node<T>::Node(T new_data) : next(NULL){
+    data = new T;
+    data = new_data;
+}
+
+//same thing - new
+template<class T>
+Node<T>::Node(const Node& node) {
+    data = new T;
+    data = node.data;
 }
 
 template<class T>
-Node<T>::Node(const Node& node) {
-    data = new T(node.data);
+Node<T>::~Node(){
+    delete data;
+    next = NULL;
 }
 
+template<class T>
+Node* Node<T>::getNext() const {
+    return next;
+}
+
+template<class T>
+T& Node<T>::getData() {
+    return data;
+}
+
+template<class T>
+const T& Node<T>::getData() const{
+    return data;
+}
 
 #endif //HW2_NODE_H
