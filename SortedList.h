@@ -6,9 +6,15 @@
 #define EXAMDETAILS_CPP_SORTEDLIST_H
 
 #include <ostream>
-#include "Node.h"
 
 typedef int T;
+
+template<class T>
+struct Node {
+private:
+    T data;
+    Node<T> *next;
+};
 
 template<class T>
 class SortedList {
@@ -26,8 +32,8 @@ public:
     const_iterator begin() const;
     const_iterator end() const;
 
-    bool insert(T& element);
-    bool remove(const_iterator it);
+    void insert(T& data);
+    void remove(const_iterator it);
     int length() const;
 
     class out_of_range{};
@@ -53,7 +59,7 @@ template<class T>
 SortedList<T>::~SortedList() {
     while(!head)
     {
-        Node<T>* temp = getNext(head);
+        Node<T>* temp = head->next;
         delete *head;
         head = temp;
     }
@@ -65,15 +71,59 @@ SortedList<T>::SortedList(const SortedList& list):head(NULL), tail(NULL), size(l
     Node<T>* node_to_copy = list.head;
     while(!node_to_copy)
     {
-        insert(node_to_copy.getData());
-        node_to_copy = *node_to_copy.getNext();
+        insert(node_to_copy->data);
+        node_to_copy = *node_to_copy->next();
     }
 
 }
 
 template<class T>
-bool SortedList<T>::remove(const_iterator it) {
-    
+void SortedList<T>::insert(T& new_data) {
+    Node<T> node_to_compare = *head;
+    Node<T> new_node = new Node<T>;
+    new_node->data = new_data;
+    if (node_to_compare == NULL)
+    {
+        head = new_node;
+        head->next = NULL;
+        tail = head;
+        return;
+    }
+    while (node_to_compare!= NULL && node_to_compare->data<new_data)
+    {
+        node_to_compare=*(head->next);
+    }
+    if (node_to_compare == NULL)
+    {
+        new_node->next = NULL;
+        tail = new_node;
+        return;
+    }
+    else
+    {
+        new_node->next = node_to_compare->next;
+        node_to_compare->next = new_node;
+        return;
+    }
+
+
+
+}
+
+template<class T>
+void SortedList<T>::remove(const_iterator it) {
+    if (it==NULL)
+        return;
+    for(SortedList<T>::const_iterator temp_it = begin(); temp_it!=end(); temp_it++)
+    {
+        if(it==temp_it->next)
+        {
+            Node<T> temp_node = temp_it->next;
+            temp_it->next = temp_it->next->next;
+            delete temp_node;
+            return;
+        }
+    }
 }
 
 template<class T>
