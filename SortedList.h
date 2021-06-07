@@ -13,7 +13,7 @@ typedef int T;
 template<class T>
 class SortedList {
 private:
-    Node *head, *tail;
+    Node<T> *head, *tail;
     int size;
 
 public:
@@ -38,15 +38,14 @@ template<class T>
 class SortedList<T>::const_iterator{
 private:
     const SortedList* sortedList;
-    int index;
-    const_iterator(const SortedList* sortedList,int index);
+    const_iterator(const SortedList* sortedList);
     friend class SortedList;
 
 public:
     SortedList::const_iterator& operator=(const SortedList::const_iterator& iterator);
     SortedList::const_iterator& operator++();
     bool operator==(const SortedList::const_iterator iterator) const;
-    const int& operator*()const;
+    const T& operator*()const;
 };
 
 template<class T>
@@ -56,7 +55,7 @@ template<class T>
 SortedList<T>::~SortedList() {
     while(!head)
     {
-        Node tmp = nodeGetNext(head);
+        Node<T> tmp = nodeGetNext(head);
         //or do we use delete here?
         nodeDestroy(head);
         head = tmp;
@@ -86,33 +85,34 @@ typename SortedList<T>::const_iterator SortedList<T>::end() const {
 }
 
 template<class T>
-SortedList<T>::const_iterator::const_iterator(const SortedList<T> *sortedList, int index) {
+SortedList<T>::const_iterator::const_iterator(const SortedList<T> *sortedList) {
     this->sortedList=sortedList;
-    this->index=index;
 }
 
 template<class T>
 typename SortedList<T>::const_iterator& SortedList<T>::const_iterator::operator=(const SortedList<T>::const_iterator &iterator) {
-    this->index=iterator.index;
     this->sortedList=iterator.sortedList;
     return *this;
 }
 
 template<class T>
 typename SortedList<T>::const_iterator& SortedList<T>::const_iterator::operator++() {
-    if(index==this->sortedList->size){
+    if(this->sortedList->head->getNext()==NULL){
         throw  out_of_range();
     }
-    ++index;
+    this->sortedList=this->sortedList->head->getNext();
     return *this;
 }
 
 template<class T>
 const T& SortedList<T> ::const_iterator::operator*() const {
-     if(index==this->sortedList->size || index<0){
-}      throw  out_of_range();
-          }
+    return this->sortedList->head->getData();
+}
 
+template<class T>
+bool SortedList<T>::const_iterator::operator==(const SortedList<T>::const_iterator iterator) const {
+    return iterator.sortedList==this->sortedList;
+}
 
 
 
