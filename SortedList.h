@@ -31,13 +31,11 @@ public:
     int length() const;
 
     class out_of_range{};
-
-
 };
 template<class T>
 class SortedList<T>::const_iterator{
 private:
-    const SortedList* sortedList;
+    const Node<T> node ;
     const_iterator(const SortedList* sortedList);
     friend class SortedList;
 
@@ -80,13 +78,13 @@ bool SortedList<T>::remove(const_iterator it) {
 
 template<class T>
 typename SortedList<T>::const_iterator SortedList<T>::begin() const {
-    return  const_iterator(this,0);
+    return  const_iterator(this->head);
 }
 
 
 template<class T>
 typename SortedList<T>::const_iterator SortedList<T>::end() const {
-    return const_iterator(this,size);
+    return const_iterator(this->tail);
 }
 
 template<class T>
@@ -96,27 +94,27 @@ SortedList<T>::const_iterator::const_iterator(const SortedList<T> *sortedList) {
 
 template<class T>
 typename SortedList<T>::const_iterator& SortedList<T>::const_iterator::operator=(const SortedList<T>::const_iterator &iterator) {
-    this->sortedList=iterator.sortedList;
+    this->node=iterator.node;
     return *this;
 }
 
 template<class T>
 typename SortedList<T>::const_iterator& SortedList<T>::const_iterator::operator++() {
-    if(this->sortedList->head->getNext()==NULL){
+    if(this->node.getNext()== NULL){
         throw  out_of_range();
     }
-    this->sortedList=this->sortedList->head->getNext();
+    this->node=this->node.getNext();
     return *this;
 }
 
 template<class T>
 const T& SortedList<T> ::const_iterator::operator*() const {
-    return this->sortedList->head->getData();
+    return this->node.getData();
 }
 
 template<class T>
 bool SortedList<T>::const_iterator::operator==(const SortedList<T>::const_iterator iterator) const {
-    return iterator.sortedList==this->sortedList;
+    return iterator.node==this->node;
 }
 
 

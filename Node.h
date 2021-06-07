@@ -18,7 +18,7 @@ public:
     Node(T data);
     Node(const Node&);
     ~Node();
-    Node* getNext() const;
+    Node<T>* getNext() const;
     const T& getData() const;
     T& getData();
 
@@ -49,7 +49,7 @@ Node<T>::~Node(){
 }
 
 template<class T>
-Node* Node<T>::getNext() const {
+Node<T>* Node<T>::getNext() const {
     return next;
 }
 
