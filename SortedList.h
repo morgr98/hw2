@@ -1,13 +1,8 @@
-//
-// Created by morgr on 05/06/2021.
-//
 
 #ifndef EXAMDETAILS_CPP_SORTEDLIST_H
 #define EXAMDETAILS_CPP_SORTEDLIST_H
 
 #include <ostream>
-
-typedef int T;
 
 template<class T>
 struct Node {
@@ -24,7 +19,7 @@ private:
 
 public:
     SortedList();
-    SortedList(const SortedList&);
+    SortedList(const SortedList& sortedList);
     ~SortedList();
 
 
@@ -42,18 +37,30 @@ template<class T>
 class SortedList<T>::const_iterator{
 private:
     const Node<T> node ;
-    const_iterator(const SortedList* sortedList);
+    explicit const_iterator(const SortedList* sortedList);
     friend class SortedList;
 
 public:
     SortedList::const_iterator& operator=(const SortedList::const_iterator& iterator);
     SortedList::const_iterator& operator++();
-    bool operator==(const SortedList::const_iterator iterator) const;
+    bool operator==(const SortedList::const_iterator& iterator);
     const T& operator*()const;
 };
 
 template<class T>
-SortedList<T>::SortedList() : head(nullptr), tail(nullptr), size(0) {}
+SortedList<T>::SortedList<class T>() {
+    size=0;
+    head= nullptr;
+}
+
+template<class T>
+SortedList<T>::SortedList<class T>(const SortedList<T> & sortedList) {
+    size=sortedList.size;
+    for (SortedList<T>::const_iterator temp_it = begin(); temp_it != end(); temp_it++) {
+    this->insert(temp_it.node.data);
+    }
+
+}
 
 template<class T>
 SortedList<T>::~SortedList() {
@@ -63,18 +70,6 @@ SortedList<T>::~SortedList() {
         delete *head;
         head = temp;
     }
-}
-
-template<class T>
-SortedList<T>::SortedList(const SortedList& list):head(NULL), tail(NULL), size(list.length())
-{
-    Node<T>* node_to_copy = list.head;
-    while(!node_to_copy)
-    {
-        insert(node_to_copy->data);
-        node_to_copy = *node_to_copy->next();
-    }
-
 }
 
 template<class T>
@@ -105,26 +100,14 @@ void SortedList<T>::insert(T& new_data) {
         node_to_compare->next = new_node;
         return;
     }
-
-
-
+    size++:
 }
 
 template<class T>
-void SortedList<T>::remove(const_iterator it) {
-    if (it==NULL)
-        return;
-    for(SortedList<T>::const_iterator temp_it = begin(); temp_it!=end(); temp_it++)
-    {
-        if(it==temp_it->next)
-        {
-            Node<T> temp_node = temp_it->next;
-            temp_it->next = temp_it->next->next;
-            delete temp_node;
-            return;
-        }
-    }
+int SortedList<T>::length() const {
+    return this->size;
 }
+
 
 template<class T>
 typename SortedList<T>::const_iterator SortedList<T>::begin() const {
@@ -138,8 +121,24 @@ typename SortedList<T>::const_iterator SortedList<T>::end() const {
 }
 
 template<class T>
+void SortedList<T>::remove(SortedList::const_iterator it) {
+    if (it == NULL)
+        return;
+    for (SortedList<T>::const_iterator temp_it = begin(); temp_it != end(); temp_it++) {
+        if (it == temp_it->next) {
+            Node<T> temp_node = temp_it->next;
+            temp_it->next = temp_it->next->next;
+            delete temp_node;
+            size--;
+            return;
+        }
+    }
+
+}
+
+template<class T>
 SortedList<T>::const_iterator::const_iterator(const SortedList<T> *sortedList) {
-    this->sortedList=sortedList;
+    this->node=sortedList;
 }
 
 template<class T>
@@ -163,7 +162,7 @@ const T& SortedList<T> ::const_iterator::operator*() const {
 }
 
 template<class T>
-bool SortedList<T>::const_iterator::operator==(const SortedList<T>::const_iterator iterator) const {
+bool SortedList<T>::const_iterator::operator==(const SortedList<T>::const_iterator& iterator) {
     return iterator.node==this->node;
 }
 
