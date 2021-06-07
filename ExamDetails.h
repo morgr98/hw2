@@ -35,7 +35,7 @@ namespace mtm {
 
         friend int operator-(const ExamDetails &exam1, const ExamDetails &exam2);
 
-        friend int operator<(const ExamDetails exam1, const ExamDetails exam2);
+        friend int operator<(const ExamDetails& exam1, const ExamDetails& exam2);
 
         class InvalidTimeException {
         };

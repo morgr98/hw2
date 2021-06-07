@@ -27,6 +27,7 @@ namespace mtm {
         this->link.operator=(exam.link);
     }
 
+
     ExamDetails &ExamDetails::operator=(const ExamDetails &exam) {
         if (this == &exam) {
             return *this;
@@ -87,7 +88,7 @@ namespace mtm {
         return month_sub * 30 + day_sub;
     }
 
-    int operator<(const ExamDetails exam1, const ExamDetails exam2) {
+    int operator<(const ExamDetails& exam1, const ExamDetails& exam2) {
         if ((exam2 - exam1) > 0)
             return true;
         return false;

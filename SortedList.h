@@ -30,6 +30,8 @@ public:
     bool remove(const_iterator it);
     int length() const;
 
+    class out_of_range{};
+
 
 };
 template<class T>
@@ -41,7 +43,7 @@ private:
     friend class SortedList;
 
 public:
-    SortedList::const_iterator& operator=(SortedList::const_iterator& iterator);
+    SortedList::const_iterator& operator=(const SortedList::const_iterator& iterator);
     SortedList::const_iterator& operator++();
     bool operator==(const SortedList::const_iterator iterator) const;
     const int& operator*()const;
@@ -66,5 +68,52 @@ SortedList<T>::SortedList(const SortedList& list):head(NULL), tail(NULL), size(l
 {
     //need to implement
 }
+
+template<class T>
+bool SortedList<T>::remove(const_iterator it) {
+    
+}
+
+template<class T>
+typename SortedList<T>::const_iterator SortedList<T>::begin() const {
+    return  const_iterator(this,0);
+}
+
+
+template<class T>
+typename SortedList<T>::const_iterator SortedList<T>::end() const {
+    return const_iterator(this,size);
+}
+
+template<class T>
+SortedList<T>::const_iterator::const_iterator(const SortedList<T> *sortedList, int index) {
+    this->sortedList=sortedList;
+    this->index=index;
+}
+
+template<class T>
+typename SortedList<T>::const_iterator& SortedList<T>::const_iterator::operator=(const SortedList<T>::const_iterator &iterator) {
+    this->index=iterator.index;
+    this->sortedList=iterator.sortedList;
+    return *this;
+}
+
+template<class T>
+typename SortedList<T>::const_iterator& SortedList<T>::const_iterator::operator++() {
+    if(index==this->sortedList->size){
+        throw  out_of_range();
+    }
+    ++index;
+    return *this;
+}
+
+template<class T>
+const T& SortedList<T> ::const_iterator::operator*() const {
+     if(index==this->sortedList->size || index<0){
+}      throw  out_of_range();
+          }
+
+
+
 
 #endif //EXAMDETAILS_CPP_SORTEDLIST_H
