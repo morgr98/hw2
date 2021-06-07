@@ -11,7 +11,7 @@ class Node
 {
 private:
     T data;
-    Node* next;
+    Node<T>* next;
 
 public:
     Node();

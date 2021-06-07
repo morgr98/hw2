@@ -26,7 +26,7 @@ public:
     const_iterator begin() const;
     const_iterator end() const;
 
-    bool insert(const T& element);
+    bool insert(T& element);
     bool remove(const_iterator it);
     int length() const;
 
@@ -55,17 +55,22 @@ template<class T>
 SortedList<T>::~SortedList() {
     while(!head)
     {
-        Node<T> tmp = nodeGetNext(head);
-        //or do we use delete here?
-        nodeDestroy(head);
-        head = tmp;
+        Node<T>* temp = getNext(head);
+        delete *head;
+        head = temp;
     }
 }
 
 template<class T>
 SortedList<T>::SortedList(const SortedList& list):head(NULL), tail(NULL), size(list.length())
 {
-    //need to implement
+    Node<T>* node_to_copy = list.head;
+    while(!node_to_copy)
+    {
+        insert(node_to_copy.getData());
+        node_to_copy = *node_to_copy.getNext();
+    }
+
 }
 
 template<class T>
