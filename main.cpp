@@ -58,20 +58,21 @@ int main()
 
     TEST("1.5")
     SortedList<string> lst1 = SortedList<string>();
-    lst1.insert("Charlie");
-    lst1.insert("Bob");
-    lst1.insert("Alice");
-    lst1.insert("Donald");
+    lst1.insert("A");
+    lst1.insert("B");
+    lst1.insert("C");
+    lst1.insert("D");
 
     printList(lst1);
 
+/*
     TEST("1.6")
     SortedList<ExamDetails> lst2;
     lst2.insert(exam1);
     lst2.insert(exam2);
 
     printList(lst2);
-
+*/
     TEST("1.7")
     SortedList<string> lst3 = lst1;
     printList(lst3);
@@ -90,7 +91,7 @@ int main()
     printList(lst2);
     cout << "----------" << endl;
     printList(lst4);
-    */
+*/
 
     return 0;
 }

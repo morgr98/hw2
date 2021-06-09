@@ -6,7 +6,8 @@ using std::endl;
 
 namespace mtm {
 
-    ExamDetails::ExamDetails(int id_course, int month, int day, double hour, int length, std::string link) {
+    ExamDetails::ExamDetails(int id_course, int month, int day, double hour, int length, std::string link):
+    link(link){
         if (month < 0 || month > 12 || day < 0 || day > 30) {
             throw ExamDetails::InvalidDateException();
         }
@@ -15,7 +16,6 @@ namespace mtm {
         this->day = day;
         this->hour = hour;
         this->length = length;
-        this->link.operator=(link);
     }
 
     ExamDetails::ExamDetails(const ExamDetails &exam) {

@@ -17,7 +17,7 @@ namespace mtm {
         bool operator==(const ExamDetails &exam);
 
     public:
-        ExamDetails(int id_course, int month, int day, double hour, int length, std::string link = " ");
+        ExamDetails(int id_course, int month, int day, double hour, int length, std::string link = "");
 
         ExamDetails(const ExamDetails &exam);
 
