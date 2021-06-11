@@ -17,14 +17,23 @@ namespace mtm {
         this->hour = hour;
         this->length = length;
     }
-
+/*
+    ExamDetails::ExamDetails() {
+        this->id_course = 1;
+        this->month = 0;
+        this->day = 0;
+        this->hour = 0;
+        this->length = 0;
+        this->link="";
+    }
+*/
     ExamDetails::ExamDetails(const ExamDetails &exam) {
         this->id_course = exam.id_course;
         this->month = exam.month;
         this->day = exam.day;
         this->hour = exam.hour;
         this->length = exam.length;
-        this->link.operator=(exam.link);
+        this->link=exam.link;
     }
 
 
@@ -37,7 +46,7 @@ namespace mtm {
         this->day = exam.day;
         this->hour = exam.hour;
         this->length = exam.length;
-        this->link.operator=(exam.link);
+        this->link=exam.link;
         return *this;
     }
 
@@ -77,7 +86,7 @@ namespace mtm {
     }
 
     ExamDetails ExamDetails::makeMatamExam() {
-        ExamDetails exam(234124, 7, 28, 13, 3, "59hzps6m/com.tinyurl://https.");
+        ExamDetails exam(234124, 7, 28, 13, 3, "https://tinyurl.com/ym8wf46t");
         return exam;
     }
 

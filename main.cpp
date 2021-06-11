@@ -57,31 +57,36 @@ int main()
 
 
     TEST("1.5")
-    SortedList<string> lst1 = SortedList<string>();
-    lst1.insert("A");
-    lst1.insert("B");
-    lst1.insert("C");
-    lst1.insert("D");
+   // SortedList<string> lst1 = SortedList<string>();
+    //lst1.insert("A");
+    //lst1.insert("D");
+    //lst1.insert("C");
+    //lst1.insert("B");
 
-    printList(lst1);
+    //printList(lst1);
 
-/*
+
     TEST("1.6")
     SortedList<ExamDetails> lst2;
     lst2.insert(exam1);
-    lst2.insert(exam2);
+   // lst2.insert(exam2);
 
     printList(lst2);
-*/
+
+
     TEST("1.7")
-    SortedList<string> lst3 = lst1;
-    printList(lst3);
+   // SortedList<string> lst3 = lst1;
+  //  printList(lst3);
+
+    //lst1.remove(lst1.begin().operator++().operator++().operator++());
+    //printList(lst1);
+
 /*
     TEST("1.8")
     lst3 = lst3.apply(getLen);
     printList(lst3);
 */
-
+/*
     TEST("1.9")
     lst3.remove(lst3.begin());
     printList(lst3);

@@ -19,6 +19,8 @@ namespace mtm {
     public:
         ExamDetails(int id_course, int month, int day, double hour, int length, std::string link = "");
 
+//        ExamDetails();
+
         ExamDetails(const ExamDetails &exam);
 
         ExamDetails &operator=(const ExamDetails &exam);
@@ -35,7 +37,7 @@ namespace mtm {
 
         friend int operator-(const ExamDetails &exam1, const ExamDetails &exam2);
 
-        friend int operator<(const ExamDetails& exam1, const ExamDetails& exam2);
+        friend int operator<(const ExamDetails &exam1, const ExamDetails &exam2);
 
         class InvalidTimeException {
         };
@@ -47,6 +49,5 @@ namespace mtm {
         };
     };
 
-
-#endif //MAIN_CPP_EXAMDETAILS_H
 }
+#endif //MAIN_CPP_EXAMDETAILS_H
