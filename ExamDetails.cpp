@@ -5,17 +5,28 @@ using std::string;
 using std::endl;
 
 namespace mtm {
+    static void checkHour(double hour);
 
     ExamDetails::ExamDetails(int id_course, int month, int day, double hour, int length, std::string link):
     link(link){
         if (month < 0 || month > 12 || day < 0 || day > 30) {
             throw ExamDetails::InvalidDateException();
         }
+        checkHour(hour);
         this->id_course = id_course;
         this->month = month;
         this->day = day;
         this->hour = hour;
         this->length = length;
+    }
+
+    static void checkHour(double hour)
+    {
+        double check_hour= hour-(int)hour;
+        if(check_hour==0 || check_hour == 0.5) {
+            return;
+        }
+        throw ExamDetails::InvalidTimeException();
     }
 /*
     ExamDetails::ExamDetails() {
@@ -26,7 +37,7 @@ namespace mtm {
         this->length = 0;
         this->link="";
     }
-*/
+
     ExamDetails::ExamDetails(const ExamDetails &exam) {
         this->id_course = exam.id_course;
         this->month = exam.month;
@@ -53,7 +64,7 @@ namespace mtm {
     ExamDetails::~ExamDetails() {
         this->link.clear();
     }
-
+*/
     bool ExamDetails::operator==(const ExamDetails &exam) {
         if (length != exam.length) {
             return false;

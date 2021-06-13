@@ -19,13 +19,13 @@ namespace mtm {
     public:
         ExamDetails(int id_course, int month, int day, double hour, int length, std::string link = "");
 
-//        ExamDetails();
+ //       ExamDetails();
 
-        ExamDetails(const ExamDetails &exam);
+        ExamDetails(const ExamDetails &exam)=default;
 
-        ExamDetails &operator=(const ExamDetails &exam);
+        ExamDetails &operator=(const ExamDetails &exam)=default;
 
-        ~ExamDetails();
+        ~ExamDetails()=default;
 
         std::string getLink() const;
 
