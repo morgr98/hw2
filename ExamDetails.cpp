@@ -28,43 +28,7 @@ namespace mtm {
         }
         throw ExamDetails::InvalidTimeException();
     }
-/*
-    ExamDetails::ExamDetails() {
-        this->id_course = 1;
-        this->month = 0;
-        this->day = 0;
-        this->hour = 0;
-        this->length = 0;
-        this->link="";
-    }
 
-    ExamDetails::ExamDetails(const ExamDetails &exam) {
-        this->id_course = exam.id_course;
-        this->month = exam.month;
-        this->day = exam.day;
-        this->hour = exam.hour;
-        this->length = exam.length;
-        this->link=exam.link;
-    }
-
-
-    ExamDetails &ExamDetails::operator=(const ExamDetails &exam) {
-        if (this == &exam) {
-            return *this;
-        }
-        this->id_course = exam.id_course;
-        this->month = exam.month;
-        this->day = exam.day;
-        this->hour = exam.hour;
-        this->length = exam.length;
-        this->link=exam.link;
-        return *this;
-    }
-
-    ExamDetails::~ExamDetails() {
-        this->link.clear();
-    }
-*/
     bool ExamDetails::operator==(const ExamDetails &exam) {
         if (length != exam.length) {
             return false;
@@ -97,7 +61,7 @@ namespace mtm {
     }
 
     ExamDetails ExamDetails::makeMatamExam() {
-        ExamDetails exam(234124, 7, 28, 13, 3, "https://tinyurl.com/ym8wf46t");
+        ExamDetails exam(234124, 7, 28, 13, 3, LINK_MTM);
         return exam;
     }
 
@@ -118,16 +82,16 @@ namespace mtm {
         int minute = exam.hour * 10;
         string minutes;
         if (minute % 2 == 0) {
-            minutes = ":00";
+            minutes =ExamDetails::HOUR ;
             minute = int(exam.hour);
         } else {
-            minutes = ":30";
+            minutes =ExamDetails::HALF_HOUR;
             minute = int(exam.hour - 0.5);
         }
         return os << "Course Number: " << exam.id_course << endl <<
-                  "Time: " << exam.day << "." << exam.month << "at" << minute << minutes << endl <<
+                  "Time: " << exam.day << "." << exam.month << " at " << minute << minutes << endl <<
                   "Duration: " << exam.length << ":00" << endl <<
-                  "Zoom Link:" << exam.link;
+                  "Zoom Link:" << exam.link<<endl;
     }
 
 

@@ -16,8 +16,6 @@ namespace mtm {
 
         Node();
 
-        void setData(T data);
-
         ~Node() = default;
 
         bool operator==(const Node<T> &node);
@@ -30,11 +28,6 @@ namespace mtm {
     Node<T>::Node() {
         this->data = NULL;
         this->next = nullptr;
-    }
-
-    template<class T>
-    void Node<T>::setData(T data) {
-        this->data = data;
     }
 
     template<class T>
@@ -57,7 +50,7 @@ namespace mtm {
 
         SortedList(const SortedList &sortedList);
 
-        SortedList<T>& operator=(const SortedList &sortedList);
+        SortedList & operator=(const SortedList &sortedList);
 
         ~SortedList();
 
@@ -74,7 +67,7 @@ namespace mtm {
         int length() const;
 
         template<class condition>
-                SortedList filter(condition c) const;
+        SortedList filter(condition c) const;
 
         template<class action>
         SortedList apply(action c) const;
@@ -110,7 +103,7 @@ namespace mtm {
     }
 
     template<class T>
-    SortedList<T>& SortedList<T>::operator=(const SortedList<T> &sortedList) {
+    SortedList<T> & SortedList<T>::operator=(const SortedList<T> &sortedList) {
         Node<T> *temp = head;
         if(!(temp== nullptr)) {
             if (!(temp->next == nullptr)) {
@@ -186,7 +179,6 @@ namespace mtm {
     template<class T>
     void SortedList<T>::insert(T data) {
         Node<T> *new_node = new Node<T>(data);
-        //  new_node->setData(data);
         if (size == 0) {
             head = new_node;
             size++;
@@ -280,9 +272,6 @@ namespace mtm {
 
     template<class T>
     typename SortedList<T>::const_iterator &SortedList<T>::const_iterator::operator++() {
-        // if(this->node->next== nullptr){
-        //     throw  out_of_range();
-        //  }
         this->node = this->node->next;
         this->index++;
         return *this;

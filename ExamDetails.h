@@ -13,13 +13,13 @@ namespace mtm {
         double hour;
         int length;
         std::string link;
-
+        static constexpr const char* LINK_MTM="https://tinyurl.com/ym8wf46t";
+        static constexpr const char* HOUR=":00";
+        static constexpr const char* HALF_HOUR=":30";
         bool operator==(const ExamDetails &exam);
 
     public:
         ExamDetails(int id_course, int month, int day, double hour, int length, std::string link = "");
-
- //       ExamDetails();
 
         ExamDetails(const ExamDetails &exam)=default;
 
