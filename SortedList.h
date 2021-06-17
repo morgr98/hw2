@@ -272,8 +272,11 @@ namespace mtm {
 
     template<class T>
     typename SortedList<T>::const_iterator &SortedList<T>::const_iterator::operator++() {
-        this->node = this->node->next;
+        if(this->node== nullptr){
+            throw out_of_range();
+        }
         this->index++;
+        this->node = this->node->next;
         return *this;
     }
 
