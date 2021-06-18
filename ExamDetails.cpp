@@ -127,7 +127,7 @@ namespace mtm {
             minute = int(exam.hour);
         } else {
             minutes =ExamDetails::HALF_HOUR;
-            minute = int(exam.hour - 0.5);
+            minute = int(exam.hour - ExamDetails::HALF);
         }
         return os << "Course Number: " << exam.id_course << endl <<
                   "Time: " << exam.day << "." << exam.month << " at " << minute << minutes << endl <<
