@@ -22,9 +22,9 @@ namespace mtm {
         static const int MAX_HOUR=23;
         static constexpr double HALF=0.5;
         bool operator==(const ExamDetails &exam);
-        void checkHour(double hour);
-        void checkNum(double num);
-        void checkDate(double date);
+        double checkHour(double hour);
+        int checkNum(double num);
+        int checkDate(double date);
 
 
     public:

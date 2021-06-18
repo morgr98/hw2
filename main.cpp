@@ -4,8 +4,8 @@
 #include <ctime>
 #include <fstream>
 #include <string>
-#include "examDetails.h"
-#include "sortedList.h"
+#include "ExamDetails.h"
+#include "SortedList.h"
 
 #define NUMBER_TESTS 6
 #define NUMBER_TESTS_SL 2
@@ -72,7 +72,7 @@ bool testConstructorParameters(){
     }
     ASSERT_TEST(counter!=0);
 
-
+/*
     try {
         counter = 0;
         ExamDetails exam_details2(-104034, 7, 11, 9.5, 3);
@@ -81,7 +81,7 @@ bool testConstructorParameters(){
         counter++;
     }
     ASSERT_TEST(counter!=0);
-
+*/
     try {
         counter = 0;
         ExamDetails exam_details2(104034, 0, 11, 9.5, 3);

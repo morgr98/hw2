@@ -10,15 +10,17 @@ namespace mtm {
 
     ExamDetails::ExamDetails(double id_course, double month, double day, double hour, double length, std::string link):
     link(link){
+        id_course=checkNum(id_course);
+        month=checkDate(month);
+        day=checkDate(day);
+        hour=checkHour(hour);
+        length=checkNum(length);
+
         if (month <= LIMIT_DAY || month > MONTH_MAX || day <= LIMIT_DAY || day > DAY_MAX) {
             throw ExamDetails::InvalidDateException();
         }
-        checkHour(hour);
-        checkDate(month);
-        checkNum(length);
-        checkDate(day);
-        checkNum(id_course);
-        if(id_course<=0 || length<=0)
+
+        if(length<=0)
         {
             throw ExamDetails::InvalidArgsException();
         }
@@ -29,34 +31,34 @@ namespace mtm {
         this->length = length;
     }
 
-    void ExamDetails::checkNum(double num)  {
+    int ExamDetails::checkNum(double num)  {
         double p;
         if(modf(num,&p)< pow(10,-6))
         {
-            return;
+            return p;
         }
         throw ExamDetails::InvalidArgsException();
     }
 
 
-    void ExamDetails::checkDate(double date)  {
+    int ExamDetails::checkDate(double date)  {
         double p;
         if(modf(date,&p)< pow(10,-6))
         {
-            return;
+            return p;
         }
         throw ExamDetails::InvalidDateException();
     }
 
 
-    void ExamDetails::checkHour(double hour) {
-        if(hour<0 || hour > MAX_HOUR)
+    double  ExamDetails::checkHour(double hour) {
+        if(hour<0 || hour > (MAX_HOUR+1))
         {
             throw ExamDetails::InvalidTimeException();
         }
-        double check_hour= hour-(int)hour;
-        if(check_hour==0 || check_hour == HALF) {
-            return;
+        double check_hour= hour-(int)hour, p;
+        if(modf(check_hour,&p)< pow(10,-6) || check_hour == HALF) {
+            return hour ;
         }
         throw ExamDetails::InvalidTimeException();
     }
