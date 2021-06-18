@@ -4,6 +4,7 @@
 
 #include <ostream>
 #include <string>
+#include <stdexcept>
 
 namespace mtm {
     template<class T>
@@ -60,6 +61,8 @@ namespace mtm {
 
         const_iterator end() const;
 
+        bool operator==(SortedList<T> & sortedList);
+
         void insert(T data);
 
         void remove(SortedList<T>::const_iterator it);
@@ -71,8 +74,6 @@ namespace mtm {
 
         template<class action>
         SortedList apply(action c) const;
-        class out_of_range {
-        };
     };
 
     template<class T>
@@ -90,20 +91,26 @@ namespace mtm {
 
         const_iterator &operator++();
 
+        const_iterator operator++(int);
+
         bool operator==(const SortedList::const_iterator &iterator);
 
         const T &operator*() const;
     };
 
     template<class T>
-    SortedList<T>::SortedList() {
-        size = 0;
-        head = nullptr;
-        tail = nullptr;
+    SortedList<T>::SortedList(){
+        size=0;
+        head= nullptr;
+        tail= nullptr;
     }
 
     template<class T>
     SortedList<T> & SortedList<T>::operator=(const SortedList<T> &sortedList) {
+        if(&sortedList == this)
+        {
+            return *this;
+        }
         Node<T> *temp = head;
         if(!(temp== nullptr)) {
             if (!(temp->next == nullptr)) {
@@ -119,8 +126,14 @@ namespace mtm {
         }
 
         size = 0;
-        for (SortedList<T>::const_iterator temp_it = sortedList.begin(); !(temp_it == sortedList.end()); ++temp_it) {
-            this->insert(temp_it.node->data);
+        if(sortedList.size>0) {
+            for (SortedList<T>::const_iterator temp_it = sortedList.begin(); !(temp_it ==
+                                                                               sortedList.end()); ++temp_it) {
+                this->insert(temp_it.node->data);
+            }
+        } else {
+            this->head = nullptr;
+            this->tail = nullptr;
         }
         return *this;
     }
@@ -128,8 +141,16 @@ namespace mtm {
     template<class T>
     SortedList<T>::SortedList(const SortedList<T> &sortedList) {
         size = 0;
-        for (SortedList<T>::const_iterator temp_it = sortedList.begin(); !(temp_it == sortedList.end()); ++temp_it) {
-            this->insert(temp_it.node->data);
+        if(sortedList.size>0) {
+            for (SortedList<T>::const_iterator temp_it = sortedList.begin(); !(temp_it ==
+                                                                               sortedList.end()); ++temp_it) {
+                this->insert(temp_it.node->data);
+            }
+        }
+        else
+        {
+            this->head= nullptr;
+            this->tail= nullptr;
         }
     }
 
@@ -175,6 +196,26 @@ namespace mtm {
         }
     }
 
+    template<class T>
+    bool SortedList<T>::operator==(SortedList<T> &sortedList) {
+        if(this->size!= sortedList.size)
+        {
+            return false;
+        }
+        SortedList<T>::const_iterator iterator_t=this->begin();
+        SortedList<T>::const_iterator iterator_s=sortedList.begin();
+        while (!(iterator_t== nullptr) && iterator_s== iterator_t)
+        {
+            iterator_s++;
+            iterator_t++;
+        }
+        if(iterator_t== nullptr && iterator_s== nullptr)
+        {
+            return true;
+        }
+        return false;
+    }
+
 
     template<class T>
     void SortedList<T>::insert(T data) {
@@ -208,11 +249,14 @@ namespace mtm {
         size++;
         new_node->next = tmp_node->next;
         tmp_node->next = new_node;
+
     }
 
     template<class T>
     void SortedList<T>::remove(SortedList<T>::const_iterator it) {
-
+        if(it.node== nullptr){
+            return;
+        }
         if (it.node == this->begin().node) {
             Node<T> *node = it.node->next;
             head = node;
@@ -226,7 +270,6 @@ namespace mtm {
                 Node<T> *node = tmp_it->next->next;
                 delete tmp_it->next;
                 tmp_it->next = node;
-                delete it.node;
                 if (i + 2 == size) {
                     tail = tmp_it;
                 }
@@ -252,6 +295,9 @@ namespace mtm {
 
     template<class T>
     typename SortedList<T>::const_iterator SortedList<T>::end() const {
+        if(size==0) {
+            return const_iterator(tail,size);
+        }
         return const_iterator(this->tail->next, size);
     }
 
@@ -273,7 +319,7 @@ namespace mtm {
     template<class T>
     typename SortedList<T>::const_iterator &SortedList<T>::const_iterator::operator++() {
         if(this->node== nullptr){
-            throw out_of_range();
+            throw std::out_of_range("out of range");
         }
         this->index++;
         this->node = this->node->next;
@@ -281,13 +327,27 @@ namespace mtm {
     }
 
     template<class T>
+    typename SortedList<T>::const_iterator SortedList<T>::const_iterator::operator++(int) {
+        if(this->node== nullptr){
+            throw std::out_of_range("out of range");
+        }
+        SortedList<T>::const_iterator result=*this;
+        this->index++;
+        this->node = this->node->next;
+        return result;
+    }
+
+    template<class T>
     const T &SortedList<T>::const_iterator::operator*() const {
+        if(this->node== nullptr){
+            throw std::out_of_range("out of range");
+        }
         return this->node->data;
     }
 
     template<class T>
     bool SortedList<T>::const_iterator::operator==(const SortedList<T>::const_iterator &iterator) {
-        return iterator.node == this->node;
+            return iterator.node == this->node;
     }
 }
 

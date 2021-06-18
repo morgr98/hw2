@@ -7,19 +7,28 @@ using std::string;
 namespace mtm {
     class ExamDetails {
     private:
-        int id_course;
-        int month;
-        int day;
+        double id_course;
+        double month;
+        double day;
         double hour;
-        int length;
+        double length;
         std::string link;
-        static constexpr const char* LINK_MTM="https://tinyurl.com/ym8wf46t";
+        static constexpr const char* LINK_MTM="https://tinyurl.com/59hzps6m";
         static constexpr const char* HOUR=":00";
         static constexpr const char* HALF_HOUR=":30";
+        static const int DAY_MAX=30;
+        static const int MONTH_MAX=12;
+        static const int LIMIT_DAY=0;
+        static const int MAX_HOUR=23;
+        static constexpr double HALF=0.5;
         bool operator==(const ExamDetails &exam);
+        void checkHour(double hour);
+        void checkNum(double num);
+        void checkDate(double date);
+
 
     public:
-        ExamDetails(int id_course, int month, int day, double hour, int length, std::string link = "");
+        ExamDetails(double id_course, double month, double day, double hour, double length, std::string link = "");
 
         ExamDetails(const ExamDetails &exam)=default;
 
@@ -35,7 +44,7 @@ namespace mtm {
 
         static ExamDetails makeMatamExam();
 
-        friend int operator-(const ExamDetails &exam1, const ExamDetails &exam2);
+        friend double operator-(const ExamDetails &exam1, const ExamDetails &exam2);
 
         friend int operator<(const ExamDetails &exam1, const ExamDetails &exam2);
 
