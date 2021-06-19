@@ -255,7 +255,7 @@ namespace mtm {
     template<class T>
     void SortedList<T>::remove(SortedList<T>::const_iterator it) {
         if(it.node== nullptr){
-            return;
+            throw std::out_of_range("out of range");
         }
         if (it.node == this->begin().node) {
             Node<T> *node = it.node->next;

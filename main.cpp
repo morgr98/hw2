@@ -4,8 +4,8 @@
 #include <ctime>
 #include <fstream>
 #include <string>
-#include "ExamDetails.h"
-#include "SortedList.h"
+#include "examDetails.h"
+#include "sortedList.h"
 
 #define NUMBER_TESTS 6
 #define NUMBER_TESTS_SL 2

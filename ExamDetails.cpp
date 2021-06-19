@@ -1,4 +1,4 @@
-#include "ExamDetails.h"
+#include "examDetails.h"
 #include <string>
 #include <ostream>
 #include <cmath>
@@ -106,7 +106,7 @@ namespace mtm {
         return month_sub * 30 + day_sub;
     }
 
-    int operator<(const ExamDetails& exam1, const ExamDetails& exam2) {
+    bool operator<(const ExamDetails& exam1, const ExamDetails& exam2) {
         if((exam2- exam1)==0)
         {
             if(exam1.hour<exam2.hour)
